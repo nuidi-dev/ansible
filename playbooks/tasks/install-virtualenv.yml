@@ -1,0 +1,5 @@
+# Install virtualenv
+
+- name: Install virtualenv
+  apt: pkg=virtualenv state=installed update_cache=true
+

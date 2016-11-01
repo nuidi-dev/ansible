@@ -1,0 +1,32 @@
+---
+
+- hosts: all
+
+  remote_user: root
+
+  vars:
+    - app_name: "super_app"
+    - app_dir: "/app2"
+    - app_address: "http://localhost:20202"
+    - app_domains: "hi.nuidi.com cos.nuidi.com"
+
+  tasks:
+
+    # Installation
+
+    - include: tasks/install-nginx.yml
+    - include: tasks/install-postgresql.yml
+    - include: tasks/install-virtualenv.yml
+
+    # Configuration
+
+    - include: tasks/conf-django-nginx.yml
+
+    # Tasks
+
+    - name: Create application directory
+      file: path={{ app_dir }}/{{ app_name }} state=directory
+
+    - name: Create virtual enviroment
+      command: virtualenv {{ app_dir }}/env
+
