@@ -28,5 +28,5 @@
       file: path={{ app_dir }}/{{ app_name }} state=directory
 
     - name: Create virtual enviroment
-      command: virtualenv {{ app_dir }}/env
+      command: virtualenv {{ app_dir }}/{{ app_name }}/env
 
