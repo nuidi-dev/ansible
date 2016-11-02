@@ -1,7 +1,0 @@
----
-
-# Install postgresql on debian
-
-- name: Install postgresql
-  apt: pkg=postgresql state=installed update_cache=true
-

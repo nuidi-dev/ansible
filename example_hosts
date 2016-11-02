@@ -1,0 +1,15 @@
+[servers]
+127.0.0.1
+
+[servers:vars]
+app_name = "example_app"
+app_local_dir = "/home/user/example_app"
+app_remote_dir = "/home/apps"
+app_address = "http://localhost:8000"
+app_domains = "example.com"
+
+db_host = "localhost"
+db_name = "{{ app_name }}"
+db_user = "{{ app_name }}"
+db_user_pass = "password123easy"
+

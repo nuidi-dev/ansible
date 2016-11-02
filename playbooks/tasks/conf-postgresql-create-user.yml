@@ -1,0 +1,13 @@
+---
+
+# Create postgresql user
+
+- name: Create DB user 
+  become: true
+  become_user: postgres
+
+  postgresql_user:
+      db={{ db_name }}
+      name={{ db_user }}
+      password={{ db_user_pass }}
+      priv=ALL

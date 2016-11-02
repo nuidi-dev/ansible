@@ -5,3 +5,5 @@
 - name: Install postgresql
   apt: pkg=postgresql state=installed update_cache=true
 
+- name: Install psycopg2
+  apt: pkg=python-psycopg2 state=installed update_cache=true

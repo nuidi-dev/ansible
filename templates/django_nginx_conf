@@ -9,11 +9,11 @@ server {
         listen [::]:80;
 
         location /static/ {
-            alias {{ app_dir }}/{{ app_name }}/static/;
+            alias {{ app_remote_dir }}/{{ app_name }}/static/;
         }
 
         location /media/ {
-            alias {{ app_dir }}/{{ app_name }}/media/;
+            alias {{ app_remote_dir }}/{{ app_name }}/media/;
         }
 
         location / {

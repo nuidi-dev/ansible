@@ -9,16 +9,13 @@
   template: src=../templates/django_nginx_conf 
       dest=/etc/nginx/sites-available/{{ app_name }}
 
-  notify:
-    - Create symlink for django app nginx configuration file
-
 
 - name: Create symlink for django app nginx configuration file
 
-  ignore_errors: yes
-
-  command: ln -s /etc/nginx/sites-available/{{ app_name }}
-      /etc/nginx/sites-enabled/{{ app_name}}
+  file:
+    src: /etc/nginx/sites-available/{{ app_name }}
+    dest: /etc/nginx/sites-enabled/{{ app_name }}
+    state: link
 
 
 - name: Create app logs directory
@@ -28,9 +25,12 @@
   file: path=/var/log/nginx/{{ app_name }} state=directory
 
 
-- name: Touch log files
+- name: Touch access log
 
   file: path=/var/log/nginx/{{ app_name }}/access.log state=touch
+
+
+- name: Touch error log
 
   file: path=/var/log/nginx/{{ app_name }}/error.log state=touch
 

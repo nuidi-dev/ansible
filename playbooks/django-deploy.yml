@@ -1,0 +1,52 @@
+---
+
+# Playbook for django application deploy (with nginx and postgresql)
+
+- hosts: all
+
+  remote_user: root
+
+  tasks:
+
+    # Install and configure packages
+
+    - include: tasks/install-nginx.yml
+    - include: tasks/install-postgresql-psycopg2.yml
+    - include: tasks/install-virtualenv.yml
+    - include: tasks/conf-nginx-django.yml
+
+
+    # Tasks
+
+    - name: Create application directory
+      file: path={{ app_remote_dir }}/{{ app_name }} state=directory
+
+
+    - name: Create virtual enviroment
+      command: virtualenv {{ app_remote_dir }}/{{ app_name }}/env
+
+
+    - name: Copy requirements.txt
+      copy: 
+          src={{ app_local_dir }}/requirements.txt 
+          dest={{ app_remote_dir }}/{{ app_name }}/requirements.txt 
+
+
+    # Install packages through pip into virtual enviroment
+
+    - include: tasks/pip-install-requirements.yml
+        env_path={{ app_remote_dir }}/{{ app_name }}/env
+        req_path={{ app_remote_dir }}/{{ app_name }}/requirements.txt
+
+
+    # Create database and user
+
+    - include: tasks/conf-postgresql-create-db.yml
+    - include: tasks/conf-postgresql-create-user.yml
+
+
+    - name: Copy django application
+      synchronize:
+          src={{ app_local_dir }}/{{ app_name }}
+          dest={{ app_remote_dir }}/{{ app_name }}
+

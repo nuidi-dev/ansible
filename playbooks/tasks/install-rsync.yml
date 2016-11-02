@@ -1,0 +1,7 @@
+---
+
+# Install rsync package
+
+- name: Install rsync
+
+  apt: pkg=rsync state=installed update_cache=true

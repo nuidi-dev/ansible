@@ -1,0 +1,7 @@
+---
+
+# Install pip required packages
+
+
+- name: Install packages from requirements file
+  pip: virtualenv={{ env_path }} requirements={{ req_path }}
